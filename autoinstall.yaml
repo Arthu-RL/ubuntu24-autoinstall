@@ -1,12 +1,12 @@
 autoinstall:
   version: 1
-  identity:
-    hostname: ubuntu-desktop
-    username: optimal-config
-    password: "123"
-  storage:
-    layout:
-      name: lvm
+  # identity:
+  #   hostname: ubuntu-desktop
+  #   username: optimal-config
+  #   password: "123"
+  # storage:
+  #   layout:
+  #     name: lvm
   snaps:
     - name: chromium
       classic: false
