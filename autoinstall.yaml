@@ -1,5 +1,8 @@
 autoinstall:
   version: 1
+  # interactive-sections:
+  #   - identity
+  #   - storage
   # identity:
   #   hostname: ubuntu-desktop
   #   username: optimal-config
