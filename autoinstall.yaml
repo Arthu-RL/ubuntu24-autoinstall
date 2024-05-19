@@ -1,8 +1,9 @@
 autoinstall:
   version: 1
-  # identity:
-  #   hostname: ubuntu-desktop
-  #   username: optimal-config
+  identity:
+    hostname: ubuntu-desktop
+    username: optimal-config
+    password: "123"
   storage:
     layout:
       name: lvm
