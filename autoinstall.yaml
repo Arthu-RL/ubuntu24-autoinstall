@@ -6,6 +6,7 @@ autoinstall:
     - name: insomnia
       classic: false
   packages:
+    - build-essential
     - vim
     - curl
     - ca-certificates
