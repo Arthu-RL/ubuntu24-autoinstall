@@ -44,6 +44,6 @@ apt update
 apt install docker-ce docker-ce-cli containerd.io
 
 # Change the default shell to zsh
-chsh -s $(which zsh)
+chsh -s /bin/zsh
 
 echo -e "All packages installed and configurations applied ${GREEN}successfully${NONE}!"
