@@ -7,8 +7,6 @@ autoinstall:
       classic: false
   packages:
     - vim
-    - cuda-drivers
-    - nvidia-cuda-toolkit
     - curl
     - ca-certificates
     - gnupg
@@ -45,6 +43,11 @@ autoinstall:
     - apt-transport-https
   late-commands:
     - curtin in-target -- apt-get update
+    - curtin in-target -- wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+    - curtin in-target -- dpkg -i cuda-keyring_1.1-1_all.deb
+    - curtin in-target -- apt-get update
+    - curtin in-target -- apt-get install -y nvidia-driver-545
+    - curtin in-target -- apt-get install -y cuda
     - curtin in-target -- apt-get install -y code
     - curtin in-target -- curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
     - curtin in-target -- apt-get update
