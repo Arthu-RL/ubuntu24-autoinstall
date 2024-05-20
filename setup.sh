@@ -1,8 +1,5 @@
 #!/bin/bash
 
-GREEN='\0033[0;32m'
-NONE='\0033[0m'
-
 # Update and upgrade the system
 apt update
 apt upgrade -y
@@ -47,4 +44,4 @@ apt install docker-ce docker-ce-cli containerd.io
 # Change the default shell to zsh
 chsh -s /bin/zsh
 
-echo -e "All packages installed and configurations applied ${GREEN}successfully${NONE}!"
+echo -e "All packages installed and configurations applied \0033[32msuccessfully\0033[0m!"
