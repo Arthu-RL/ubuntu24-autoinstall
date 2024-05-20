@@ -48,8 +48,9 @@ autoinstall:
     - curtin in-target -- wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
     - curtin in-target -- dpkg -i cuda-keyring_1.1-1_all.deb
     - curtin in-target -- apt-get update
-    - curtin in-target -- apt-get install -y nvidia-driver-545
-    - curtin in-target -- apt-get install -y cuda
+    - curtin in-target -- apt search nvidia-driver
+    - curtin in-target -- apt-get install -y nvidia-driver-550
+    - curtin in-target -- apt-get install -y cuda-drivers-550
     - curtin in-target -- wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     - curtin in-target -- install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
     - curtin in-target -- echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | tee /etc/apt/sources.list.d/vscode.list > /dev/null
@@ -65,4 +66,5 @@ autoinstall:
     - curtin in-target -- apt-get install -y docker-ce docker-ce-cli containerd.io
     - curtin in-target -- apt-get install -y zsh
     - curtin in-target -- apt-get install -y zsh-autosuggestions zsh-syntax-highlighting
-    - curtin in-target -- chsh -s $(which zsh)
+    - curtin in-target -- chsh -s /bin/zsh
+    - curtin in-target -- echo "All packages installed and configurations applied successfully!"

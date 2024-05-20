@@ -21,6 +21,7 @@ apt install build-essential vim curl ca-certificates gnupg lsb-release dpkg git 
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
 dpkg -i cuda-keyring_1.1-1_all.deb
 apt update
+apt search nvidia-driver
 apt install nvidia-driver-550 cuda-drivers-550
 
 # Install NVIDIA container toolkit
