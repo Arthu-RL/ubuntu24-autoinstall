@@ -1,15 +1,5 @@
 autoinstall:
   version: 1
-  # interactive-sections:
-  #   - identity
-  #   - storage
-  # identity:
-  #   hostname: ubuntu-desktop
-  #   username: optimal-config
-  #   password: "123"
-  # storage:
-  #   layout:
-  #     name: lvm
   snaps:
     - name: chromium
       classic: false
@@ -17,25 +7,52 @@ autoinstall:
       classic: false
   packages:
     - vim
+    - cuda-drivers
+    - nvidia-cuda-toolkit
+    - curl
+    - ca-certificates
+    - gnupg
+    - lsb-release
+    - dpkg
+    - git
+    - qtdeclarative5-dev
+    - qml-module-qtquick-layouts
+    - qml-module-qtquick-controls
+    - qml-module-qtquick-controls2
+    - qml-module-qtquick2
+    - qml-module-qt-labs-settings
+    - qml-module-qtquick-dialogs
+    - libc6
+    - libgcc-s1
+    - libqt5core5a
+    - libqt5gui5
+    - libqt5multimedia5
+    - libqt5multimedia5-plugins
+    - libqt5qml5
+    - libqt5quick5
+    - qml-module-qtquick2
+    - xterm
+    - openssh-server
+    - libboost-all-dev
+    - build-essential
+    - libmbedtls-dev
+    - libcppunit-dev
+    - libxml2
+    - libxml2-dev
+    - python3-dev
+    - wget
+    - gpg
+    - apt-transport-https
   late-commands:
-    - curtin in-target -- apt update
-    - curtin in-target -- apt install -y cuda-drivers-550
-    - curtin in-target -- apt install curl ca-certificates gnupg lsb-release dpkg git qtdeclarative5-dev qml-module-qtquick-layouts qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick2 qml-module-qt-labs-settings qml-module-qtquick-dialogs libc6 libgcc-s1 libqt5core5a libqt5gui5 libqt5multimedia5 libqt5multimedia5-plugins libqt5qml5 libqt5quick5 qml-module-qtquick2 xterm openssh-server libboost-all-dev build-essential libmbedtls-dev libcppunit-dev libxml2 libxml2-dev python3-dev wget gpg
-    - curtin in-target -- wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-    - curtin in-target -- install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-    - curtin in-target -- echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | tee /etc/apt/sources.list.d/vscode.list > /dev/null
-    - curtin in-target -- rm -f packages.microsoft.gpg
-    - curtin in-target -- apt update
-    - curtin in-target -- apt install apt-transport-https
-    - curtin in-target -- apt install code
+    - curtin in-target -- apt-get update
+    - curtin in-target -- apt-get install -y code
     - curtin in-target -- curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
-    - curtin in-target -- apt update
-    - curtin in-target -- apt install -y nvidia-container-toolkit
-    - curtin in-target -- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-    - curtin in-target -- chmod a+r /etc/apt/keyrings/docker.gpg
-    - curtin in-target -- echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-    - curtin in-target -- apt update
-    - curtin in-target -- apt install docker-ce docker-ce-cli containerd.io
-    - curtin in-target -- apt install zsh
-    - curtin in-target -- apt install zsh-autosuggestions zsh-syntax-highlighting
+    - curtin in-target -- apt-get update
+    - curtin in-target -- apt-get install -y nvidia-container-toolkit
+    - curtin in-target -- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
+    - curtin in-target -- echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+    - curtin in-target -- apt-get update
+    - curtin in-target -- apt-get install -y docker-ce docker-ce-cli containerd.io
+    - curtin in-target -- apt-get install -y zsh
+    - curtin in-target -- apt-get install -y zsh-autosuggestions zsh-syntax-highlighting
     - curtin in-target -- chsh -s $(which zsh)
