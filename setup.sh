@@ -56,10 +56,9 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 
 # Update the .zshrc file to use the plugins and theme
 sed -i 's/^ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc
-sed -i 's/^plugins=(/&zsh-autosuggestions zsh-syntax-highlighting /' ~/.zshrc
+sed -i 's/^plugins=(.*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
-source ~/.zshrc
-
-chsh -s $(which zsh)
+chsh -s /bin/zsh
 
 echo -e "All packages installed and configurations applied \0033[32msuccessfully\0033[0m!"
+echo "Reboot your machine"
