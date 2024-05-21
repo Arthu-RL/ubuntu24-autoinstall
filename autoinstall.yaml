@@ -1,5 +1,23 @@
 autoinstall:
   version: 1
+  identity:
+    hostname: ubuntu-desktop
+    username: optimal-config
+    password: test
+  storage:
+    layout:
+      name: lvm
+  apt:
+    preserve_sources_list: false
+    mirror-selection:
+      primary:
+        - country-mirror
+        - arches: [i386, amd64]
+          uri: "http://archive.ubuntu.com/ubuntu"
+        - arches: [s390x, arm64, armhf, powerpc, ppc64el, riscv64]
+          uri: "http://ports.ubuntu.com/ubuntu-ports"
+    fallback: abort
+    geoip: true
   snaps:
     - name: chromium
       classic: false
@@ -49,6 +67,7 @@ autoinstall:
     - gnome-tweaks
     - gnome-disk-utility
     - psensor
+    - libreoffice
   late-commands:
     - curtin in-target -- apt-get update
     - curtin in-target -- wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
@@ -74,9 +93,9 @@ autoinstall:
     - curtin in-target -- export CHSH=no
     - curtin in-target -- export KEEP_ZSHRC=yes
     - curtin in-target -- sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    - curtin in-target -- git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    - curtin in-target -- git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    - curtin in-target -- git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}/themes/powerlevel10k
-    - curtin in-target -- sed -i 's/^ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' /root/.zshrc
-    - curtin in-target -- sed -i 's/^plugins=(.*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' /root/.zshrc
+    - curtin in-target -- git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    - curtin in-target -- git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    - curtin in-target -- git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+    - curtin in-target -- sed -i 's/^ZSH_THEME=".*"/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc
+    - curtin in-target -- sed -i 's/^plugins=(.*)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
     - curtin in-target -- chsh -s /bin/zsh
