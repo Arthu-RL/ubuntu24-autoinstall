@@ -50,6 +50,7 @@ export CHSH=no
 export KEEP_ZSHRC=yes
 
 # Install Oh My Zsh
+apt-get install -y zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Installing plugins and theme
