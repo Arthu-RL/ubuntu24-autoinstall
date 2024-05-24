@@ -19,13 +19,16 @@ wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/
 dpkg -i cuda-keyring_1.1-1_all.deb
 apt update
 apt search nvidia-driver
-apt-get install -y nvidia-driver-545 cuda-drivers-545
+apt-get install -y nvidia-driver-550 cuda-drivers-550
 
 # Install NVIDIA container toolkit
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
 curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
 apt update
 apt-get install -y nvidia-container-toolkit
+
+# Installing and fixing drivers dependencies
+ubuntu-drivers install -y
 
 # Installing code 
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
